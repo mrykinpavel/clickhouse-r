@@ -140,7 +140,7 @@ setMethod("dbSendQuery", "clickhouse_connection", function(conn, statement, use 
 	  if (use == "memory") {
   		dataenv$data <- data.table::fread(rawToChar(req$content), sep="\t", header=TRUE,
   						  showProgress=FALSE,
-  						  blank.lines.skip = TRUE)
+  						  blank.lines.skip = TRUE, na.strings=c("NA", "\\N"))
 	  } else {
 	    dataenv$data <- data.table::fread(tmp, sep = "\t", header = TRUE,
 	                                      showProgress = FALSE,
