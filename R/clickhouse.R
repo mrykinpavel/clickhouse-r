@@ -111,7 +111,7 @@ setMethod("dbSendQuery", "clickhouse_connection", function(conn, statement, use 
 	}
 
 	h <- curl::new_handle()
-	handle_setheaders(h,
+	curl::handle_setheaders(h,
 	  "Content-Encoding" = "gzip"
 	)
         #let's ignore peer verification for now
