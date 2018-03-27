@@ -194,14 +194,15 @@ setMethod("dbWriteTable", signature(conn = "clickhouse_connection", name = "char
     classes <- unlist(lapply(value, function(v){
       class(v)[[1]]
     }))
-    for (c in names(classes[classes=="character"])) {
-      value[[c]] <- enc2utf8(value[[c]])
-    }
-    for (c in names(classes[classes=="factor"])) {
-      levels(value[[c]]) <- enc2utf8(levels(value[[c]]))
-    }
-    write.table(value, textConnection("value_str", open="w"), sep="\t", row.names=F, col.names=F, quote=T)
-    value_str2 <- paste0(get("value_str"), collapse="\n")
+#    for (c in names(classes[classes=="character"])) {
+#      value[[c]] <- enc2utf8(value[[c]])
+#    }
+#    for (c in names(classes[classes=="factor"])) {
+#      levels(value[[c]]) <- enc2utf8(levels(value[[c]]))
+#    }
+    write.table(value, textConnection("value_str", open="w"), sep="\t", row.names=F, col.names=F, quote=F)
+    closeAllConnections()
+	  value_str2 <- paste0(get("value_str"), collapse="\n")
 
 	h <- curl::new_handle()
 	curl::handle_setopt(h, copypostfields = value_str2, userpwd = paste0(conn@user, ":", conn@password), httpauth = 1L, ssl_verifypeer = FALSE)
