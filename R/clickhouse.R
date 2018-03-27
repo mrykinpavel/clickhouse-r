@@ -111,7 +111,9 @@ setMethod("dbSendQuery", "clickhouse_connection", function(conn, statement, use 
 	}
 
 	h <- curl::new_handle()
-
+	handle_setheaders(h,
+	  "Content-Encoding" = "gzip"
+	)
         #let's ignore peer verification for now
 	curl::handle_setopt(h, copypostfields = q, userpwd = paste0(conn@user, ":", conn@password), httpauth = 1L, ssl_verifypeer = FALSE)
 	url <- paste0(conn@url, "?database=", URLencode(conn@database))
