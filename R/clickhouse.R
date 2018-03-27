@@ -111,9 +111,9 @@ setMethod("dbSendQuery", "clickhouse_connection", function(conn, statement, use 
 	}
 
 	h <- curl::new_handle()
-	curl::handle_setheaders(h,
-	  "Content-Encoding" = "gzip"
-	)
+#	curl::handle_setheaders(h,
+#	  "Content-Encoding" = "gzip"
+#	)
         #let's ignore peer verification for now
 	curl::handle_setopt(h, copypostfields = q, userpwd = paste0(conn@user, ":", conn@password), httpauth = 1L, ssl_verifypeer = FALSE)
 	url <- paste0(conn@url, "?database=", URLencode(conn@database))
@@ -214,9 +214,9 @@ setMethod("dbWriteTable", signature(conn = "clickhouse_connection", name = "char
 	  value_str2 <- paste0(get("value_str"), collapse="\n")
 
 	h <- curl::new_handle()
-	curl::handle_setheaders(h,
-	  "Content-Encoding" = "gzip"
-	)
+#	curl::handle_setheaders(h,
+#	  "Content-Encoding" = "gzip"
+#	)
 	curl::handle_setopt(h, copypostfields = value_str2, userpwd = paste0(conn@user, ":", conn@password), httpauth = 1L, ssl_verifypeer = FALSE)
 	req <- curl::curl_fetch_memory(paste0(conn@url, "?database=", URLencode(conn@database), "&query=", URLencode(paste0("INSERT INTO ", qname, " FORMAT TabSeparated"))), handle = h)
 	if (req$status_code != 200) {
