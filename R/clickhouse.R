@@ -207,7 +207,7 @@ setMethod("dbWriteTable", signature(conn = "clickhouse_connection", name = "char
 		sep="\t", 
 		row.names=F, 
 		col.names=F, 
-		#quote=T, 
+		quote=F, 
 		qmethod = "double"
 	       )
     closeAllConnections()
