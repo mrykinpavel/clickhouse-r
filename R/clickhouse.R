@@ -206,9 +206,8 @@ setMethod("dbWriteTable", signature(conn = "clickhouse_connection", name = "char
 		textConnection("value_str", open="w"), 
 		sep="\t", 
 		row.names=F, 
-		col.names=F, 
-		quote=F, 
-		qmethod = "double"
+		col.names=F,
+		quote=F
 	       )
     closeAllConnections()
 	  value_str2 <- paste0(get("value_str"), collapse="\n")
