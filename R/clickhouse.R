@@ -194,13 +194,13 @@ setMethod("dbWriteTable", signature(conn = "clickhouse_connection", name = "char
     classes <- unlist(lapply(value, function(v){
       class(v)[[1]]
     }))
-#    for (c in names(classes[classes=="character"])) {
-#      value[[c]] <- enc2utf8(value[[c]])
-#    }
-#    for (c in names(classes[classes=="factor"])) {
-#      levels(value[[c]]) <- enc2utf8(levels(value[[c]]))
-#    }
-    write.table(value, textConnection("value_str", open="w"), sep="\t", row.names=F, col.names=F, quote=F)
+    for (c in names(classes[classes=="character"])) {
+      value[[c]] <- enc2utf8(value[[c]])
+    }
+    for (c in names(classes[classes=="factor"])) {
+      levels(value[[c]]) <- enc2utf8(levels(value[[c]]))
+    }
+    write.table(value, textConnection("value_str", open="w"), sep="\t", row.names=F, col.names=F, quote=T)
     closeAllConnections()
 	  value_str2 <- paste0(get("value_str"), collapse="\n")
 
