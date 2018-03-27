@@ -190,10 +190,10 @@ setMethod("dbWriteTable", signature(conn = "clickhouse_connection", name = "char
     ct <- paste0("CREATE TABLE ", qname, " (", fdef, ") ENGINE=", engine)
     dbExecute(conn, ct)
   }
-  if (length(value[[1]])) {
-    classes <- unlist(lapply(value, function(v){
-      class(v)[[1]]
-    }))
+#  if (length(value[[1]])) {
+#    classes <- unlist(lapply(value, function(v){
+#      class(v)[[1]]
+#    }))
 #    for (c in names(classes[classes=="character"])) {
 #      value[[c]] <- enc2utf8(value[[c]])
 #    }
