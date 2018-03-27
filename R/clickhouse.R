@@ -200,7 +200,14 @@ setMethod("dbWriteTable", signature(conn = "clickhouse_connection", name = "char
     for (c in names(classes[classes=="factor"])) {
       levels(value[[c]]) <- enc2utf8(levels(value[[c]]))
     }
-    write.table(value, textConnection("value_str", open="w"), sep="\t", row.names=F, col.names=F, quote=F, qmethod = c("escape", "double"))
+    write.table(value, 
+		textConnection("value_str", open="w"), 
+		sep="\t", 
+		row.names=F, 
+		col.names=F, 
+		quote=F, 
+		qmethod = "escape"
+	       )
     closeAllConnections()
 	  value_str2 <- paste0(get("value_str"), collapse="\n")
 
